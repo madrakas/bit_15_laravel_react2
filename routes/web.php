@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\ColorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,15 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/animal-b', [AnimalController::class, 'indexBlade']);
+Route::get('/animal-r', [AnimalController::class, 'indexReact']);
+
+
+Route::prefix('colors')->name('color.')->group(function () {
+    Route::get('/', [ColorController::class, 'index'])->name('index');
+    Route::delete('/{color}', [ColorController::class, 'destroy'])->name('destroy');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -34,5 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';

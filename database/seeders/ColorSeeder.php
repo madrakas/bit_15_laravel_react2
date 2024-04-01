@@ -2,19 +2,19 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory;
 
-class DatabaseSeeder extends Seeder
+class ColorSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run(): void
     {
         for ($i = 0; $i < 10; $i++) {
-            $size = Factory::create()->numberBetween(100, 200);
+            $size = Factory::create()->randomNumber(1, 100);
             $hex = Factory::create()->hexColor;
             DB::table('colors')->insert([
                 'size' => $size,
