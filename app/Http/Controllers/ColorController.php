@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use App\Http\Requests\StoreColorRequest;
 use App\Http\Requests\UpdateColorRequest;
-use App\Models\Color;
+
 
 class ColorController extends Controller
 {
@@ -14,23 +15,25 @@ class ColorController extends Controller
     public function index()
     {
         $colors = Color::all();
-        return inertia('Color/Index', ['colors' => $colors]);
+        return inertia('Color/Index', [
+            'colors' => $colors,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreColorRequest $request)
     {
-        //
+        sleep(3);
+        // abort(403, 'Unauthorized action.');
+        $id = Color::create($request->validated())->id;
+        return response()->json([
+            'message' => 'Success',
+            'id' => $id,
+        ]);
     }
 
     /**
@@ -54,7 +57,13 @@ class ColorController extends Controller
      */
     public function update(UpdateColorRequest $request, Color $color)
     {
-        //
+
+        sleep(3);
+        // abort(403, 'Unauthorized action.');
+        $color->update($request->validated());
+        return response()->json([
+            'message' => 'Success',
+        ]);
     }
 
     /**
@@ -62,9 +71,12 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     {
+        
+        sleep(3);
+        // abort(403, 'Unauthorized action.');
         $color->delete();
         return response()->json([
-            'message' => 'Color deleted successfully'
+            'message' => 'Success',
         ]);
     }
 }

@@ -27,14 +27,17 @@ Route::get('/', function () {
     ]);
 });
 
+
 Route::get('/animal-b', [AnimalController::class, 'indexBlade']);
 Route::get('/animal-r', [AnimalController::class, 'indexReact']);
-
 
 Route::prefix('colors')->name('color.')->group(function () {
     Route::get('/', [ColorController::class, 'index'])->name('index');
     Route::delete('/{color}', [ColorController::class, 'destroy'])->name('destroy');
+    Route::post('/', [ColorController::class, 'store'])->name('store');
+    Route::put('/{color}', [ColorController::class, 'update'])->name('update');
 });
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -45,7 +48,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
 
 require __DIR__.'/auth.php';

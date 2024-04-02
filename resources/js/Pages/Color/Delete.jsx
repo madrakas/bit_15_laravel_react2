@@ -1,9 +1,11 @@
-import { useContext } from "react";
-import { Data } from "./Data";
-export default function Delete() {
-    const{deleteColor, setDeleteColor, setDestroyColor} = useContext(Data);
+import { useContext } from 'react';
+import { Data } from './Data';
 
-    const submit = _=> {
+export default function Delete() {
+
+    const { deleteColor, setDeleteColor, setDestroyColor } = useContext(Data);
+
+    const submit = _ => {
         setDestroyColor(deleteColor);
         setDeleteColor(null);
     }
@@ -11,11 +13,11 @@ export default function Delete() {
     return (
         <div className="modal-delete">
             <div className="modal">
-                <h2>Delete {deleteColor.hex}</h2>
+                <h2>Delete Color {deleteColor.hex}</h2>
                 <p>Are you sure you want to delete this color?</p>
                 <div className="buttons">
-                    <button className="no" onClick={_=>setDeleteColor(null)}>Cancel</button>
-                    <button className="yes" onClick={_=>submit}>Delete</button>
+                    <button className="no" onClick={_ => setDeleteColor(null)}>Cancel</button>
+                    <button className="yes" onClick={submit}>Delete</button>
                 </div>
             </div>
         </div>
